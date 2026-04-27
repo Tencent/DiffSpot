@@ -1,6 +1,6 @@
 # DiffSpot — VLM Prompt (has-diff items)
 #
-# Used for the 4,500 has-diff items (easy/medium/hard).
+# Used for the 3,900 has-diff items (1,300 each in easy/medium/hard).
 # Calibrated to avoid priming bias: phrases changes as a *possibility*,
 # not as an asserted fact, so the same prompt is fair for no-diff items
 # rendered with this template's no-diff sibling (vlm_nodiff.txt).

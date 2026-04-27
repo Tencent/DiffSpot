@@ -42,7 +42,7 @@ Aggregated metrics:
 
 - **Diff F1 (split)**: macro-average of per-item F1 within each split
 - **Diff F1 (overall)**: macro-average across all has-diff items
-- **Per-mutation Recall**: per-operator recall (12 operators)
+- **Per-mutation Recall**: per-operator recall (13 operators)
 
 ### No-diff items (`no_diff` split)
 

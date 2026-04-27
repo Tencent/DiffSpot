@@ -2,9 +2,11 @@
   "schema_version": "1.0",
   "dataset_revision": "TBD",
   "subset": {
-    "has_diff_pairs": 4400,
-    "no_diff_pairs": null,
-    "note": "Preliminary subset; full 5K has-diff + 1.5K no-diff release pending."
+    "has_diff_pairs": 3900,
+    "no_diff_pairs": 500,
+    "total_instances": 4400,
+    "balanced_cells": "13 operators x 3 difficulty tiers x 100 pairs each",
+    "note": "Full v1 benchmark."
   },
   "judge": {
     "model": "gpt-oss-120b",

@@ -1,6 +1,6 @@
 # DiffSpot — VLM Prompt (no-diff items)
 #
-# Used for the 1,000 no-diff items. Identical wording to vlm_diff.txt so
+# Used for the 500 no-diff items. Identical wording to vlm_diff.txt so
 # that the model's prior over "is there a change?" is the same in both
 # tracks. Any reported change here counts toward the hallucination rate.
 #

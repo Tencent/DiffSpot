@@ -1,0 +1,17 @@
+# DiffSpot — Official LLM Judge Prompt (v1.0)
+#
+# Locked alongside the v1 dataset release. Reproduced verbatim in the paper
+# appendix. Any change to this file MUST bump diffspot.judge.JUDGE_VERSION.
+#
+# >>> PROMPT BEGINS BELOW THIS LINE >>>
+
+# TODO: paste the iter19-stable Kimi-K2.5 judge prompt here, exactly as
+# published in the paper appendix. The prompt should:
+#   - Take (GT mutations, GT description, model prediction) as input
+#   - Emit a strict-JSON label with these keys:
+#       matched_gt:        list[int]   # indices of matched GT mutations
+#       reported_diffs:    list[dict]  # one per claim in the prediction
+#       correct_reports:   list[int]   # indices of reported diffs that match
+#       any_change_reported: bool      # for hallucination scoring
+#   - Use 1-shot or 0-shot, whichever was finalized in the paper
+#   - Be deterministic-flavored: temperature=0, reasoning_effort=high

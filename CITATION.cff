@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+title: "DiffSpot: Can VLMs Detect Visual Changes in Web Pages?"
+message: "If you use DiffSpot, please cite the paper below."
+type: dataset
+authors:
+  - given-names: TBD
+    family-names: TBD
+    affiliation: TBD
+preferred-citation:
+  type: article
+  title: "DiffSpot: Can VLMs Detect Visual Changes in Web Pages?"
+  authors:
+    - given-names: TBD
+      family-names: TBD
+  year: 2026
+  url: "TBD"
+repository-code: "https://github.com/<org>/DiffSpot"
+license: Apache-2.0
+keywords:
+  - benchmark
+  - vision-language-models
+  - visual-change-detection
+  - web-ui
+  - regression-testing

@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "diffspot"
+version = "0.1.0"
+description = "DiffSpot: a benchmark for visual change detection in real-world web UIs."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+authors = [{ name = "DiffSpot Authors" }]
+keywords = ["benchmark", "vlm", "visual-diff", "web-ui"]
+classifiers = [
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+dependencies = [
+    "datasets>=3.0.0",
+    "huggingface_hub>=0.25.0",
+    "pillow>=10.0.0",
+    "tqdm>=4.66.0",
+    "pyyaml>=6.0",
+    "pydantic>=2.0",
+    "numpy>=1.26",
+    "pandas>=2.0",
+    "httpx>=0.27.0",
+]
+
+[project.optional-dependencies]
+api = ["openai>=1.40.0", "anthropic>=0.34.0", "google-generativeai>=0.7.0"]
+dev = ["pytest>=8.0", "ruff>=0.6.0"]
+
+[project.scripts]
+diffspot-eval = "diffspot.cli:evaluate"
+
+[tool.setuptools.packages.find]
+include = ["diffspot*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"

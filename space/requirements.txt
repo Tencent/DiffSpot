@@ -2,4 +2,5 @@ gradio>=4.40.0
 datasets>=3.0.0
 huggingface_hub>=0.25.0
 pillow>=10.0.0
-diffspot @ git+https://github.com/<org>/DiffSpot.git
+# Install diffspot from this repo (replace <org> with your GitHub org / user):
+# diffspot @ git+https://github.com/<org>/DiffSpot.git

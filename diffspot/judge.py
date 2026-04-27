@@ -13,7 +13,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-JUDGE_VERSION = "v1.0"
+JUDGE_VERSION = "v2.0"
 DEFAULT_JUDGE_MODEL = "gpt-oss-120b"
 DEFAULT_REASONING_EFFORT = "high"
 

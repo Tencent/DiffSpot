@@ -2,7 +2,7 @@
 
 Checks:
   - schema (id, split, model, prompt_version, prediction)
-  - coverage (all 6,000 dataset items present, no duplicates)
+  - coverage (all 4,400 dataset items present, no duplicates)
   - prompt_version matches the official prompt files
   - prediction is non-empty for all has-diff items
 

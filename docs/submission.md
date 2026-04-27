@@ -21,7 +21,7 @@ python scripts/prepare_submission.py \
     --output submissions/<your-model>.zip
 ```
 
-This checks coverage (all 6,000 items present), schema, and prompt version.
+This checks coverage (all 4,400 items present), schema, and prompt version.
 
 ## Step 3 — Open a PR
 

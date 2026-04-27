@@ -12,16 +12,17 @@ DiffSpot is a benchmark for **visual change detection in real-world web UIs**. G
 
 ## Highlights
 
-- **5,000 has-diff pairs + 1,000 no-diff pairs** (6K eval instances), URL-globally-unique
-- **12 mutation operators** covering CSS-attribute-level changes (color, spacing, alignment, opacity, …)
-- **3 difficulty levels** (1 / 2 / 3 mutations × significance)
+- **3,900 has-diff pairs + 500 no-diff pairs** = **4,400 evaluation instances**, URL-globally-unique
+- **13 CSS-property-level operators** in 4 families: typography (`font_weight` / `font_size` / `letter_spacing` / `line_height` / `text`), color (`color` / `opacity` / `gradient`), layout (`position` / `spacing` / `justify`), shape (`border` / `rounded`)
+- **3 difficulty tiers** (Easy / Medium / Hard) — 39 balanced cells of 100 pairs each (13 operators × 3 tiers)
 - **Programmatic GT** — zero hand annotation, fully reproducible pipeline
+- **Grounding-gate validation** — every pair anchored to the target element's bounding box, rejecting no-effect and reflow-contamination failures
 - **Open-ended description format** + **no-diff hallucination control**
 - **LLM-as-Judge** (prompt published in the paper appendix and in [`diffspot/prompts/judge.txt`](diffspot/prompts/judge.txt))
 
 ## Leaderboard
 
-> Preliminary results on a 4,400-pair subset of the has-diff splits. Scored with the v2 judge (`gpt-oss-120b`, `reasoning_effort=high`). Cross-judge ranking agreement (gpt-oss-120b / Kimi-K2.5 / Qwen3.5-397B): **Kendall τ = 1.000** — relative order is judge-invariant. Full per-difficulty and per-mutation breakdown is in [`results/`](results/) and the paper.
+> Results on the full 3,900 has-diff pairs. Scored with the v2 judge (`gpt-oss-120b`, `reasoning_effort=high`). Cross-judge ranking agreement (gpt-oss-120b / Kimi-K2.5 / Qwen3.5-397B): **Kendall τ = 1.000** — relative order is judge-invariant. Full per-difficulty and per-mutation breakdown is in [`results/`](results/) and the paper.
 
 <!-- LEADERBOARD START -->
 
@@ -40,7 +41,7 @@ DiffSpot is a benchmark for **visual change detection in real-world web UIs**. G
 | 11 | Qwen3-VL-235B-A22B-Instruct |  5.9% |  5.1% |  7.1% | 2597 |
 | 12 | InternVL3.5-30B-A3B         |  4.8% |  4.2% |  5.6% | 2753 |
 
-`Halluc.` = absolute count of false-positive diff claims across the 4,400-pair has-diff set. The no-diff (1,500-item) hallucination-rate column will be added once the no-diff judge pass completes.
+`Halluc.` = absolute count of false-positive diff claims across the 3,900 has-diff pairs. The no-diff hallucination rate (on the 500-pair no-diff control) is reported separately in the paper.
 
 <!-- LEADERBOARD END -->
 

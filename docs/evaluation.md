@@ -2,7 +2,7 @@
 
 ## Inputs
 
-- 6,000 (image_a, image_b) screenshot pairs
+- 4,400 (image_a, image_b) screenshot pairs (3,900 has-diff + 500 no-diff)
 - Two prompt files in [`diffspot/prompts/`](../diffspot/prompts/):
   - `vlm_diff.txt` — used for has-diff items
   - `vlm_nodiff.txt` — used for no-diff items

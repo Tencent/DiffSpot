@@ -1,12 +1,11 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "2.0",
   "dataset_revision": "TBD",
-  "subset": {
+  "benchmark": {
     "has_diff_pairs": 3900,
     "no_diff_pairs": 500,
     "total_instances": 4400,
-    "balanced_cells": "13 operators x 3 difficulty tiers x 100 pairs each",
-    "note": "Full v1 benchmark."
+    "balanced_cells": "13 operators x 3 difficulty tiers x 100 pairs each"
   },
   "judge": {
     "model": "gpt-oss-120b",
@@ -15,113 +14,116 @@
     "max_tokens": 16384,
     "prompt_version": "v2.0"
   },
+  "metrics": {
+    "primary": "overall_accuracy",
+    "definitions": {
+      "easy_recall":         "Recall on the 1,300 Easy has-diff pairs",
+      "med_recall":          "Recall on the 1,300 Medium has-diff pairs",
+      "hard_recall":         "Recall on the 1,300 Hard has-diff pairs",
+      "diff_overall_recall": "Recall on the 3,900 has-diff pairs",
+      "no_diff_specificity": "Specificity on the 500 no-diff pairs",
+      "overall_accuracy":    "Per-case Accuracy (TP + TN) / 4,400 — official leaderboard score"
+    }
+  },
   "cross_judge_validation": {
-    "judges": ["gpt-oss-120b", "kimi-k2.5", "qwen3.5-397b-a17b"],
+    "judges": ["gpt-oss-120b", "kimi-k2.5", "qwen3.5-vl-397b"],
     "kendall_tau_pairwise": 1.0,
     "note": "Relative model rankings are identical across all three judges."
   },
+  "trivial_baselines": {
+    "always_no_diff": { "overall_accuracy": 11.4 }
+  },
   "entries": [
     {
-      "rank": 1,
-      "model": "gemini-3.1-pro",
-      "display_name": "Gemini 3.1 Pro",
-      "f1": 0.434, "recall": 0.407, "precision": 0.466,
-      "correct": 1587, "wrong": 2313, "hallucinations": 1820
+      "model": "gemini-3.1-pro", "display_name": "Gemini 3.1 Pro",
+      "family": "proprietary", "params": "—",
+      "easy_recall": 60.5, "med_recall": 38.9, "hard_recall": 22.7,
+      "diff_overall_recall": 40.7, "no_diff_specificity": 98.4,
+      "overall_accuracy": 47.2
     },
     {
-      "rank": 2,
-      "model": "kimi-k2.5",
-      "display_name": "Kimi K2.5",
-      "f1": 0.375, "recall": 0.364, "precision": 0.388,
-      "correct": 1419, "wrong": 2481, "hallucinations": 2239
+      "model": "kimi-k2.5", "display_name": "Kimi K2.5",
+      "family": "open-weight", "params": "1T / 32B",
+      "easy_recall": 54.2, "med_recall": 36.4, "hard_recall": 18.6,
+      "diff_overall_recall": 36.4, "no_diff_specificity": 87.2,
+      "overall_accuracy": 42.2
     },
     {
-      "rank": 3,
-      "model": "gemini-3-flash",
-      "display_name": "Gemini 3 Flash",
-      "f1": 0.356, "recall": 0.344, "precision": 0.370,
-      "correct": 1342, "wrong": 2558, "hallucinations": 2289
+      "model": "gemini-3-flash", "display_name": "Gemini 3 Flash",
+      "family": "proprietary", "params": "—",
+      "easy_recall": 52.5, "med_recall": 32.5, "hard_recall": 18.2,
+      "diff_overall_recall": 34.4, "no_diff_specificity": 91.4,
+      "overall_accuracy": 40.9
     },
     {
-      "rank": 4,
-      "model": "qwen3.5-397b-a17b",
-      "display_name": "Qwen3.5-397B-A17B",
-      "f1": 0.323, "recall": 0.301, "precision": 0.349,
-      "correct": 1173, "wrong": 2727, "hallucinations": 2186
+      "model": "claude-opus-4-7", "display_name": "Claude Opus 4.7",
+      "family": "proprietary", "params": "—",
+      "easy_recall": 41.2, "med_recall": 30.5, "hard_recall": 21.8,
+      "diff_overall_recall": 31.2, "no_diff_specificity": 99.6,
+      "overall_accuracy": 38.9
     },
     {
-      "rank": 5,
-      "model": "claude-opus-4-7",
-      "display_name": "Claude Opus 4.7",
-      "f1": 0.317, "recall": 0.312, "precision": 0.323,
-      "correct": 1215, "wrong": 2685, "hallucinations": 2552
+      "model": "gpt-5.4", "display_name": "GPT-5.4",
+      "family": "proprietary", "params": "—",
+      "easy_recall": 48.8, "med_recall": 30.5, "hard_recall": 12.2,
+      "diff_overall_recall": 30.5, "no_diff_specificity": 99.6,
+      "overall_accuracy": 38.3
     },
     {
-      "rank": 6,
-      "model": "qwen3-vl-235b-a22b-thinking",
-      "display_name": "Qwen3-VL-235B-A22B-Thinking",
-      "f1": 0.216, "recall": 0.193, "precision": 0.246,
-      "correct": 753, "wrong": 3147, "hallucinations": 2314
+      "model": "qwen3.5-vl-397b", "display_name": "Qwen3.5-VL-397B",
+      "family": "open-weight", "params": "397B / 17B",
+      "easy_recall": 45.1, "med_recall": 31.5, "hard_recall": 13.7,
+      "diff_overall_recall": 30.1, "no_diff_specificity": 96.6,
+      "overall_accuracy": 37.6
     },
     {
-      "rank": 7,
-      "model": "glm-4.6v-flash",
-      "display_name": "GLM-4.6V-Flash",
-      "f1": 0.184, "recall": 0.171, "precision": 0.199,
-      "correct": 668, "wrong": 3232, "hallucinations": 2693
+      "model": "qwen3-vl-235b-thinking", "display_name": "Qwen3-VL-235B-Thinking",
+      "family": "open-weight", "params": "235B / 22B",
+      "easy_recall": 30.1, "med_recall": 17.3, "hard_recall": 10.5,
+      "diff_overall_recall": 19.3, "no_diff_specificity": 98.8,
+      "overall_accuracy": 28.3
     },
     {
-      "rank": 8,
-      "model": "glm-4.6v",
-      "display_name": "GLM-4.6V",
-      "f1": 0.131, "recall": 0.112, "precision": 0.158,
-      "correct": 435, "wrong": 3465, "hallucinations": 2314
+      "model": "glm-4.6v-flash", "display_name": "GLM-4.6V-Flash",
+      "family": "open-weight", "params": "9B",
+      "easy_recall": 24.5, "med_recall": 17.6, "hard_recall": 9.3,
+      "diff_overall_recall": 17.1, "no_diff_specificity": 75.8,
+      "overall_accuracy": 23.8
     },
     {
-      "rank": 9,
-      "model": "qwen3-vl-30b-a3b-thinking",
-      "display_name": "Qwen3-VL-30B-A3B-Thinking",
-      "f1": 0.108, "recall": 0.097, "precision": 0.121,
-      "correct": 380, "wrong": 3520, "hallucinations": 2760
+      "model": "glm-4.6v", "display_name": "GLM-4.6V",
+      "family": "open-weight", "params": "106B / 12B",
+      "easy_recall": 17.0, "med_recall": 10.9, "hard_recall": 5.5,
+      "diff_overall_recall": 11.2, "no_diff_specificity": 99.6,
+      "overall_accuracy": 21.2
     },
     {
-      "rank": 10,
-      "model": "qwen3-vl-30b-a3b-instruct",
-      "display_name": "Qwen3-VL-30B-A3B-Instruct",
-      "f1": 0.098, "recall": 0.093, "precision": 0.104,
-      "correct": 364, "wrong": 3536, "hallucinations": 3133
+      "model": "qwen3-vl-30b-instruct", "display_name": "Qwen3-VL-30B-Instruct",
+      "family": "open-weight", "params": "30B / 3B",
+      "easy_recall": 14.5, "med_recall": 9.0, "hard_recall": 4.5,
+      "diff_overall_recall": 9.3, "no_diff_specificity": 82.0,
+      "overall_accuracy": 17.6
     },
     {
-      "rank": 11,
-      "model": "qwen3-vl-235b-a22b-instruct",
-      "display_name": "Qwen3-VL-235B-A22B-Instruct",
-      "f1": 0.059, "recall": 0.051, "precision": 0.071,
-      "correct": 198, "wrong": 3702, "hallucinations": 2597
+      "model": "qwen3-vl-30b-thinking", "display_name": "Qwen3-VL-30B-Thinking",
+      "family": "open-weight", "params": "30B / 3B",
+      "easy_recall": 16.5, "med_recall": 8.8, "hard_recall": 3.8,
+      "diff_overall_recall": 9.7, "no_diff_specificity": 77.8,
+      "overall_accuracy": 17.5
     },
     {
-      "rank": 12,
-      "model": "internvl3.5-30b-a3b",
-      "display_name": "InternVL3.5-30B-A3B",
-      "f1": 0.048, "recall": 0.042, "precision": 0.056,
-      "correct": 162, "wrong": 3738, "hallucinations": 2753
+      "model": "qwen3-vl-235b-instruct", "display_name": "Qwen3-VL-235B-Instruct",
+      "family": "open-weight", "params": "235B / 22B",
+      "easy_recall": 9.6, "med_recall": 3.0, "hard_recall": 2.6,
+      "diff_overall_recall": 5.1, "no_diff_specificity": 100.0,
+      "overall_accuracy": 15.9
+    },
+    {
+      "model": "internvl3.5-30b-a3b", "display_name": "InternVL3.5-30B-A3B",
+      "family": "open-weight", "params": "30B / 3B",
+      "easy_recall": 4.7, "med_recall": 3.9, "hard_recall": 3.8,
+      "diff_overall_recall": 4.2, "no_diff_specificity": 100.0,
+      "overall_accuracy": 15.0
     }
-  ],
-  "by_difficulty_top5": {
-    "note": "Per-difficulty F1 from the v6 judge run on the same prediction set; numbers shift slightly under v2 judge but ranking is invariant.",
-    "rows": [
-      { "model": "gemini-3.1-pro",    "easy": 0.574, "medium": 0.399, "hard": 0.235, "delta_easy_hard": -0.339 },
-      { "model": "kimi-k2.5",         "easy": 0.461, "medium": 0.327, "hard": 0.176, "delta_easy_hard": -0.285 },
-      { "model": "gemini-3-flash",    "easy": 0.433, "medium": 0.286, "hard": 0.175, "delta_easy_hard": -0.258 },
-      { "model": "qwen3.5-397b-a17b", "easy": 0.431, "medium": 0.316, "hard": 0.144, "delta_easy_hard": -0.287 },
-      { "model": "claude-opus-4-7",   "easy": 0.358, "medium": 0.257, "hard": 0.193, "delta_easy_hard": -0.165 }
-    ]
-  },
-  "by_mutation_recall": {
-    "note": "Per-operator recall (v6 judge). 13 operators currently shipped; the data card lists all of them.",
-    "operators": [
-      "justify", "text", "opacity", "font_size", "letter_spacing",
-      "font_weight", "position", "color", "spacing", "line_height",
-      "border", "rounded", "gradient"
-    ]
-  }
+  ]
 }

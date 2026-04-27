@@ -22,30 +22,33 @@ DiffSpot is a benchmark for **visual change detection in real-world web UIs**. G
 
 ## Leaderboard
 
-> Results on the full 3,900 has-diff pairs. Scored with the v2 judge (`gpt-oss-120b`, `reasoning_effort=high`). Cross-judge ranking agreement (gpt-oss-120b / Kimi-K2.5 / Qwen3.5-397B): **Kendall τ = 1.000** — relative order is judge-invariant. Full per-difficulty and per-mutation breakdown is in [`results/`](results/) and the paper.
+> **Visual Diff Detection on the full 4,400-pair benchmark.** All numbers are percentages. **Easy / Med / Hard / Diff Overall** are Recall on has-diff pairs (1,300 per tier; 3,900 total). **No-Diff** is specificity on the 500 no-diff pairs. **Overall** is per-case Accuracy `(TP + TN) / 4,400` and is the official leaderboard score. Scored with the v2 judge (`gpt-oss-120b`, `reasoning_effort=high`); cross-judge agreement Kendall τ = 1.000 across gpt-oss-120b / Kimi-K2.5 / Qwen3.5-VL-397B. **Bold** = column max; rows sorted by Overall within each group.
 
 <!-- LEADERBOARD START -->
 
-| Rank | Model | Diff F1 | Recall | Precision | Halluc. ↓ |
-|---:|---|---:|---:|---:|---:|
-| 1 | Gemini 3.1 Pro              | **43.4%** | 40.7% | 46.6% | 1820 |
-| 2 | Kimi K2.5                   | 37.5% | 36.4% | 38.8% | 2239 |
-| 3 | Gemini 3 Flash              | 35.6% | 34.4% | 37.0% | 2289 |
-| 4 | Qwen3.5-397B-A17B           | 32.3% | 30.1% | 34.9% | 2186 |
-| 5 | Claude Opus 4.7             | 31.7% | 31.2% | 32.3% | 2552 |
-| 6 | Qwen3-VL-235B-A22B-Thinking | 21.6% | 19.3% | 24.6% | 2314 |
-| 7 | GLM-4.6V-Flash              | 18.4% | 17.1% | 19.9% | 2693 |
-| 8 | GLM-4.6V                    | 13.1% | 11.2% | 15.8% | 2314 |
-| 9 | Qwen3-VL-30B-A3B-Thinking   | 10.8% |  9.7% | 12.1% | 2760 |
-| 10 | Qwen3-VL-30B-A3B-Instruct   |  9.8% |  9.3% | 10.4% | 3133 |
-| 11 | Qwen3-VL-235B-A22B-Instruct |  5.9% |  5.1% |  7.1% | 2597 |
-| 12 | InternVL3.5-30B-A3B         |  4.8% |  4.2% |  5.6% | 2753 |
+| Model | Params | Easy | Med | Hard | Diff Overall | No-Diff | **Overall** |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| _Open-weight models_ | | | | | | | |
+| Kimi K2.5                   | 1T / 32B   | 54.2 | 36.4 | 18.6 | 36.4 | 87.2 | 42.2 |
+| Qwen3.5-VL-397B             | 397B / 17B | 45.1 | 31.5 | 13.7 | 30.1 | 96.6 | 37.6 |
+| Qwen3-VL-235B-Thinking      | 235B / 22B | 30.1 | 17.3 | 10.5 | 19.3 | 98.8 | 28.3 |
+| GLM-4.6V-Flash              | 9B         | 24.5 | 17.6 |  9.3 | 17.1 | 75.8 | 23.8 |
+| GLM-4.6V                    | 106B / 12B | 17.0 | 10.9 |  5.5 | 11.2 | 99.6 | 21.2 |
+| Qwen3-VL-30B-Instruct       | 30B / 3B   | 14.5 |  9.0 |  4.5 |  9.3 | 82.0 | 17.6 |
+| Qwen3-VL-30B-Thinking       | 30B / 3B   | 16.5 |  8.8 |  3.8 |  9.7 | 77.8 | 17.5 |
+| Qwen3-VL-235B-Instruct      | 235B / 22B |  9.6 |  3.0 |  2.6 |  5.1 | **100.0** | 15.9 |
+| InternVL3.5-30B-A3B         | 30B / 3B   |  4.7 |  3.9 |  3.8 |  4.2 | **100.0** | 15.0 |
+| _Proprietary models_ | | | | | | | |
+| **Gemini 3.1 Pro**          | —          | **60.5** | **38.9** | **22.7** | **40.7** | 98.4 | **47.2** |
+| Gemini 3 Flash              | —          | 52.5 | 32.5 | 18.2 | 34.4 | 91.4 | 40.9 |
+| Claude Opus 4.7             | —          | 41.2 | 30.5 | 21.8 | 31.2 | 99.6 | 38.9 |
+| GPT-5.4                     | —          | 48.8 | 30.5 | 12.2 | 30.5 | 99.6 | 38.3 |
 
-`Halluc.` = absolute count of false-positive diff claims across the 3,900 has-diff pairs. The no-diff hallucination rate (on the 500-pair no-diff control) is reported separately in the paper.
+Trivial always-no-diff baseline: 11.4% Overall.
 
 <!-- LEADERBOARD END -->
 
-**Headline finding**: even the strongest model (Gemini 3.1 Pro) sits at 43% Diff F1 on real-world web UIs, and falls steeply with difficulty (Easy 57% → Hard 24%). Visual change detection on web pages is far from solved.
+**Headline finding**: Gemini 3.1 Pro leads at **47.2% Overall Accuracy** — 5.0 pp ahead of Kimi K2.5 (42.2%) and 32 pp above InternVL3.5-30B-A3B (15.0%). Seven of thirteen models fall below 30% Accuracy, and even the leader misses three of every five ground-truth mutations (Diff Overall Recall ≈ 41%). The top-4 non-conservative models all lose 34–38 pp Recall going from Easy to Hard, and Hard-tier Recall stays below 23% for every model. Open-ended Visual Diff Detection on real web-UI pairs is not solved.
 
 Submit your model: see [`docs/submission.md`](docs/submission.md).
 

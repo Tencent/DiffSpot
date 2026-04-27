@@ -25,28 +25,32 @@ A single JSONL with one record per dataset item:
 
 ## Metrics
 
+DiffSpot reduces each pair to a binary judgment (model identified the GT mutation? / model claimed any change on a no-diff page?), then aggregates as follows.
+
 ### Has-diff items (`easy` / `medium` / `hard`)
 
-For each item, the LLM judge produces:
+The LLM judge marks, for each pair, whether the model's free-form prediction matched the structured GT mutation (`correct` / `partial` / `missed` per the v2.0 judge schema; `correct` counts as a true positive).
 
-- `matched_gt`: which GT mutations were correctly identified by the model
-- `correct_reports`: which of the model's reported diffs match a GT mutation
-
-Per-item:
-
-- `Recall    = |matched_gt| / |GT|`
-- `Precision = |correct_reports| / |reported_diffs|`  (Precision = 1 if no reports)
-- `F1`       = harmonic mean
-
-Aggregated metrics:
-
-- **Diff F1 (split)**: macro-average of per-item F1 within each split
-- **Diff F1 (overall)**: macro-average across all has-diff items
-- **Per-mutation Recall**: per-operator recall (13 operators)
+- **Easy Recall** = TPs / 1,300 — fraction of Easy has-diff pairs where the model identified the mutation
+- **Med Recall** = TPs / 1,300
+- **Hard Recall** = TPs / 1,300
+- **Diff Overall Recall** = TPs / 3,900
 
 ### No-diff items (`no_diff` split)
 
-- **Hallucination Rate** = fraction of no-diff items where the model reported any change
+- **No-Diff Specificity** = TNs / 500 — fraction of no-diff pairs where the model reported _no_ change
+
+### Headline metric
+
+- **Overall Accuracy** = (TP + TN) / 4,400 — official leaderboard score
+  - TP from the 3,900 has-diff pairs (model correctly identified the mutation)
+  - TN from the 500 no-diff pairs (model correctly reported no change)
+- Trivial baselines: always-no-diff = 11.4% Accuracy (= 500/4,400)
+
+### Optional per-mutation breakdown
+
+- Per-operator Recall on the 13 mutation operators (300 pairs per operator across the three difficulty tiers)
+- Reported in the paper's analysis section, not the headline leaderboard
 
 ## Judge
 
@@ -63,11 +67,13 @@ Aggregated metrics:
 
 ## Reporting
 
-When citing DiffSpot results in a paper, please report **all four** numbers per model:
+When citing DiffSpot results, please report **at minimum** these six numbers per model:
 
-1. Diff F1 (Easy)
-2. Diff F1 (Medium)
-3. Diff F1 (Hard)
-4. Hallucination Rate
+1. Easy Recall (1,300 pairs)
+2. Med Recall (1,300 pairs)
+3. Hard Recall (1,300 pairs)
+4. Diff Overall Recall (3,900 pairs)
+5. No-Diff Specificity (500 pairs)
+6. **Overall Accuracy** (the headline leaderboard score)
 
-Reporting Diff F1 alone without the hallucination rate is misleading — a model that aggressively over-reports differences can inflate F1 on has-diff items while being unusable in practice (high false-positive rate on no-diff pages).
+Reporting Recall alone without Specificity is misleading — a model that aggressively over-reports diffs can inflate Recall on has-diff pairs while being unusable in practice (it will hallucinate on no-diff pages too). The Overall Accuracy combines both into a single per-case binary metric.

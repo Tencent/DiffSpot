@@ -1,17 +1,21 @@
 """Official DiffSpot metrics.
 
-Two scoring tracks:
+Each (image_a, image_b) pair is reduced to a binary outcome:
+  - has-diff pair: TP if the model identified the GT mutation, FN otherwise
+  - no-diff  pair: TN if the model reported no change,        FP otherwise
 
-1. has-diff items (splits: easy / medium / hard)
-   - Recall:    fraction of GT mutations identified by the model
-   - Precision: fraction of model-reported diffs that match a GT mutation
-   - Diff F1:   harmonic mean of Recall and Precision
+The judge labels (see `diffspot.judge`) drive these binary outcomes.
 
-2. no-diff items
-   - Hallucination rate: fraction of items where the model reported any change
+Headline metric:
+    Overall Accuracy = (TP + TN) / 4,400
 
-Mutation matching is done by the LLM judge (see `diffspot.judge`); this module
-turns judge labels into aggregate numbers.
+Per-tier and per-split breakdowns:
+    Easy / Med / Hard Recall  -- TPs over 1,300 has-diff pairs each
+    Diff Overall Recall       -- TPs over 3,900 has-diff pairs
+    No-Diff Specificity       -- TNs over 500 no-diff pairs
+
+Optional analysis breakdown:
+    Per-operator Recall on the 13 mutation operators (300 pairs each).
 """
 
 from __future__ import annotations
@@ -20,34 +24,26 @@ from dataclasses import dataclass, field
 
 
 @dataclass
-class DiffScore:
+class TierScore:
     recall: float
-    precision: float
-    f1: float
-    n_items: int
-
-
-@dataclass
-class HallucinationScore:
-    rate: float
-    n_items: int
+    n_pairs: int
 
 
 @dataclass
 class DiffSpotReport:
-    overall: DiffScore
-    by_split: dict[str, DiffScore] = field(default_factory=dict)
-    by_mutation_type: dict[str, DiffScore] = field(default_factory=dict)
-    no_diff: HallucinationScore | None = None
+    overall_accuracy: float                          # (TP + TN) / 4,400
+    diff_overall_recall: float                        # TP / 3,900
+    no_diff_specificity: float                        # TN / 500
+    by_tier: dict[str, TierScore] = field(default_factory=dict)         # easy/med/hard
+    by_operator: dict[str, TierScore] = field(default_factory=dict)     # 13 operators
 
 
 def aggregate(judged_items: list[dict]) -> DiffSpotReport:
     """Aggregate per-item judge labels into the official DiffSpot report.
 
     Each `judged_items[i]` is expected to contain:
-        - id, split, mutation_types
-        - matched_gt_count, total_gt_count          (for has-diff items)
-        - reported_diff_count, correct_diff_count    (for has-diff items)
-        - reported_any_change                        (for no-diff items)
+        - id, split ("easy"|"medium"|"hard"|"no_diff"), operator
+        - is_true_positive: bool   (has-diff item where the GT mutation was identified)
+        - is_true_negative: bool   (no-diff item where the model reported no change)
     """
     raise NotImplementedError("aggregate() not yet implemented.")

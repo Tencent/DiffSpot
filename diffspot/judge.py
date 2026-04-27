@@ -34,7 +34,12 @@ def judge_item(
 ) -> dict:
     """Score a single prediction against GT.
 
-    Returns a label dict (matched_gt_count, total_gt_count,
-    reported_diff_count, correct_diff_count, reported_any_change, ...).
+    Returns a label dict matching the v2.0 judge schema:
+        mutations:       list[{gt, type, verdict, vlm_match}]
+        hallucinations:  list[str]
+        summary:         {correct, partial, missed, hallucinated}
+
+    For aggregation, a has-diff pair counts as TP iff at least one mutation has
+    verdict == "correct"; a no-diff pair counts as TN iff hallucinations is empty.
     """
     raise NotImplementedError("judge_item() not yet implemented.")

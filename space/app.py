@@ -24,7 +24,7 @@ SPLITS = ["easy", "medium", "hard", "no_diff"]
 def _try_load_split(split: str):
     try:
         return list(load(split=split))
-    except Exception as e:
+    except (OSError, ValueError, ImportError, RuntimeError) as e:
         return e
 
 

@@ -52,12 +52,12 @@ def main() -> int:
     args = parser.parse_args()
 
     try:
-        from openai import OpenAI
+        import openai
     except ImportError:
         print("openai is required: pip install openai>=1.40.0", file=sys.stderr)
         return 1
 
-    client = OpenAI(
+    client = openai.OpenAI(
         base_url=args.endpoint,
         api_key=os.environ.get("OPENAI_API_KEY", "EMPTY"),
     )
@@ -103,7 +103,7 @@ def main() -> int:
             try:
                 resp = client.chat.completions.create(**kwargs)
                 raw = resp.choices[0].message.content or ""
-            except Exception as e:
+            except (openai.OpenAIError, OSError, ValueError) as e:
                 print(f"  [error] id={item.id}: {e}", file=sys.stderr)
                 continue
 

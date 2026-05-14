@@ -51,7 +51,7 @@ def main() -> int:
     args = parser.parse_args()
 
     try:
-        from openai import OpenAI
+        import openai
     except ImportError:
         print("openai is required: pip install openai>=1.40.0", file=sys.stderr)
         return 1
@@ -61,7 +61,7 @@ def main() -> int:
         return 1
 
     base_url = os.environ.get("OPENAI_BASE_URL")
-    client = OpenAI(base_url=base_url) if base_url else OpenAI()
+    client = openai.OpenAI(base_url=base_url) if base_url else openai.OpenAI()
 
     output_path = Path(args.output)
     output_path.parent.mkdir(parents=True, exist_ok=True)
@@ -104,7 +104,7 @@ def main() -> int:
             try:
                 resp = client.chat.completions.create(**kwargs)
                 raw = resp.choices[0].message.content or ""
-            except Exception as e:
+            except (openai.OpenAIError, OSError, ValueError) as e:
                 print(f"  [error] id={item.id}: {e}", file=sys.stderr)
                 continue
 

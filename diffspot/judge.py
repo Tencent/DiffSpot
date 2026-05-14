@@ -78,23 +78,33 @@ def _parse_judge_json(raw: str) -> dict:
     return json.loads(raw)
 
 
-def _client():
-    """Lazily construct an OpenAI-compatible client.
-
-    Looks at ``OPENAI_API_KEY`` (required) and ``OPENAI_BASE_URL`` (optional).
-    """
+def _openai_module():
+    """Lazily import and return the ``openai`` module."""
     try:
-        from openai import OpenAI
+        import openai
     except ImportError as e:
         raise RuntimeError(
             "openai is required for the DiffSpot judge. "
             "Install with: pip install openai>=1.40.0"
         ) from e
+    return openai
+
+
+def _client():
+    """Lazily construct an OpenAI-compatible client.
+
+    Looks at ``OPENAI_API_KEY`` (required) and ``OPENAI_BASE_URL`` (optional).
+    """
+    openai = _openai_module()
     api_key = os.environ.get("OPENAI_API_KEY")
     if not api_key:
         raise RuntimeError("OPENAI_API_KEY environment variable is not set.")
     base_url = os.environ.get("OPENAI_BASE_URL")
-    return OpenAI(api_key=api_key, base_url=base_url) if base_url else OpenAI(api_key=api_key)
+    return (
+        openai.OpenAI(api_key=api_key, base_url=base_url)
+        if base_url
+        else openai.OpenAI(api_key=api_key)
+    )
 
 
 def judge_item(
@@ -128,6 +138,7 @@ def judge_item(
         gt_description=gt_description,
         prediction=prediction,
     )
+    openai = _openai_module()
     client = _client()
 
     last_error: Exception | None = None
@@ -146,8 +157,8 @@ def judge_item(
             return _parse_judge_json(content)
         except (json.JSONDecodeError, ValueError) as e:
             last_error = e  # bad JSON: retry without backoff (model drift, not rate limit)
-        except Exception as e:
-            last_error = e
+        except (openai.OpenAIError, OSError) as e:
+            last_error = e  # transient API / network: back off and retry
             time.sleep(retry_backoff ** attempt)
 
     raise RuntimeError(f"judge_item failed after {max_retries} retries: {last_error}")

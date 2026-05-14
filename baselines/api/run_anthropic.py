@@ -36,7 +36,7 @@ def main() -> int:
     args = parser.parse_args()
 
     try:
-        from anthropic import Anthropic
+        import anthropic
     except ImportError:
         print("anthropic is required: pip install anthropic>=0.34.0", file=sys.stderr)
         return 1
@@ -45,7 +45,7 @@ def main() -> int:
         print("ANTHROPIC_API_KEY not set", file=sys.stderr)
         return 1
 
-    client = Anthropic()
+    client = anthropic.Anthropic()
     output_path = Path(args.output)
     output_path.parent.mkdir(parents=True, exist_ok=True)
     done = already_done(output_path)
@@ -87,7 +87,7 @@ def main() -> int:
                     messages=[{"role": "user", "content": content}],
                 )
                 raw = "".join(b.text for b in resp.content if getattr(b, "type", "") == "text")
-            except Exception as e:
+            except (anthropic.AnthropicError, OSError, ValueError) as e:
                 print(f"  [error] id={item.id}: {e}", file=sys.stderr)
                 continue
 

@@ -43,6 +43,7 @@ def main() -> int:
 
     try:
         import google.generativeai as genai
+        from google.api_core import exceptions as google_exceptions
     except ImportError:
         print(
             "google-generativeai is required: pip install google-generativeai>=0.7.0",
@@ -84,7 +85,7 @@ def main() -> int:
                     },
                 )
                 raw = resp.text or ""
-            except Exception as e:
+            except (google_exceptions.GoogleAPIError, OSError, ValueError) as e:
                 print(f"  [error] id={item.id}: {e}", file=sys.stderr)
                 continue
 

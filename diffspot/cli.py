@@ -118,7 +118,7 @@ def evaluate(argv: list[str] | None = None) -> int:
         for i, fut in enumerate(as_completed(futures), 1):
             try:
                 judged.append(fut.result())
-            except Exception as e:
+            except (RuntimeError, OSError, ValueError) as e:
                 pid = futures[fut]
                 print(f"  [error] judge failed for id={pid}: {e}", file=sys.stderr)
             if i % 100 == 0:

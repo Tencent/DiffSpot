@@ -56,7 +56,7 @@ The LLM judge marks, for each pair, whether the model's free-form prediction mat
 
 - Model: `gpt-oss-120b`
 - Settings: `temperature=0`, `reasoning_effort=high`
-- Prompt: pinned at [`diffspot/prompts/judge.txt`](../diffspot/prompts/judge.txt) (`JUDGE_VERSION=v1.0`)
+- Prompt: pinned at [`diffspot/prompts/judge.txt`](../diffspot/prompts/judge.txt) (`JUDGE_VERSION=v2.0`)
 - The exact judge prompt is reproduced in the paper appendix.
 
 ## Reproducibility

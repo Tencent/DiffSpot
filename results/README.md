@@ -19,7 +19,7 @@ results/<model-id>/
 Use the lowercase model identifier with hyphens:
 
 - `gpt-5.4`
-- `claude-opus-4-6`
+- `claude-opus-4-7`
 - `gemini-3.1-pro`
 - `qwen3-vl-235b-a22b`
 - `kimi-k2.5`

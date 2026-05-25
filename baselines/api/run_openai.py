@@ -92,11 +92,15 @@ def main() -> int:
                     },
                 },
             ]
+            # OpenAI reasoning models (o-series / gpt-5+) reject the legacy
+            # ``max_tokens`` field and require ``max_completion_tokens``. The
+            # latter is also accepted by every recent OpenAI-compatible server
+            # (vLLM, sglang, internal gateways), so we use it unconditionally.
             kwargs: dict = {
                 "model": args.model,
                 "messages": [{"role": "user", "content": content}],
                 "temperature": args.temperature,
-                "max_tokens": args.max_tokens,
+                "max_completion_tokens": args.max_tokens,
             }
             if args.reasoning_effort:
                 kwargs["extra_body"] = {"reasoning_effort": args.reasoning_effort}

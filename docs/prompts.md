@@ -24,16 +24,30 @@ The released v1.0 prompt uses the possibility form ("Subtle changes may have bee
 
 ## Judge prompt (judge.txt)
 
-Locked at v1.0. Reproduced verbatim in the paper appendix.
+Locked at v2.0. Reproduced verbatim in the paper appendix.
 
 The judge takes:
 - The GT mutation list (operator + element + before/after values)
 - The GT natural-language description
 - The model's prediction
 
-And outputs strict JSON (`matched_gt`, `reported_diffs`, `correct_reports`, `any_change_reported`).
+And outputs strict JSON with the v2.0 schema:
 
-The judge is `gpt-oss-120b` with `temperature=0` and `reasoning_effort=high`. We measured judge agreement on a 200-item human-labeled subset; agreement numbers are in the paper.
+```json
+{
+  "mutations": [
+    {"gt": "...", "type": "...", "verdict": "correct|partial|missed", "vlm_match": "..."}
+  ],
+  "hallucinations": ["..."],
+  "summary": {"correct": 0, "partial": 0, "missed": 0, "hallucinated": 0}
+}
+```
+
+`diffspot.judge.reduce_judge_label` collapses this to the binary outcomes used by metrics:
+- **has-diff**: TP iff any `mutations[*].verdict == "correct"`; else FN
+- **no-diff**:  TN iff `hallucinations == []`; else FP
+
+The judge is `gpt-oss-120b` with `temperature=0` and `reasoning_effort=high`. Cross-judge agreement across `gpt-oss-120b` / `kimi-k2.5` / `qwen3.5-vl-397b` gives Kendall τ = 1.000 on model rankings; details in the paper.
 
 ## Modifying prompts
 

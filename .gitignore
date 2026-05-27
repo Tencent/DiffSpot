@@ -59,3 +59,4 @@ results/_tmp/
 # HF Space build artifacts
 space/.gradio/
 space/flagged/
+.git_backups/

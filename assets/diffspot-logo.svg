@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 340" width="1180" height="340" fill="none">
+  <!-- ===== Icon: two overlapping screenshot frames + magnifier on the spotted diff ===== -->
+
+  <!-- back frame (the "before" screenshot) -->
+  <rect x="64" y="70" width="150" height="150" rx="22"
+        fill="#FFFFFF" stroke="#C3CAD3" stroke-width="13"/>
+
+  <!-- front frame (the "after" screenshot) -->
+  <rect x="116" y="118" width="160" height="160" rx="24"
+        fill="#FFFFFF" stroke="#141414" stroke-width="15"/>
+
+  <!-- UI content bars inside the front frame -->
+  <rect x="142" y="150" width="108" height="12" rx="6" fill="#C3CAD3"/>
+  <rect x="142" y="178" width="86"  height="12" rx="6" fill="#C3CAD3"/>
+
+  <!-- magnifier: lens straddling the spotted difference -->
+  <circle cx="232" cy="226" r="44" fill="#FFFFFF" stroke="#141414" stroke-width="15"/>
+  <line x1="266" y1="260" x2="306" y2="300" stroke="#141414" stroke-width="20" stroke-linecap="round"/>
+  <!-- the spotted difference -->
+  <circle cx="232" cy="226" r="13" fill="#FF4438"/>
+
+  <!-- ===== Wordmark ===== -->
+  <text x="372" y="228" font-family="DejaVu Sans, Arial, sans-serif" font-weight="bold"
+        font-size="150" letter-spacing="-2" fill="#141414">DiffSpot</text>
+</svg>

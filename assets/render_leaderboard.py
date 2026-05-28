@@ -69,9 +69,9 @@ ax.add_patch(Rectangle((0.905, bottom), 0.083, (top + 0.02) - bottom,
 # --- Header ---
 hy = top - header_h * 0.42
 # "Diff" group label + underline spanning Easy..Diff... actually Easy/Med/Hard/Diff
-ax.text((0.495 + 0.745) / 2, top - 0.018, "Diff", ha="center", va="center",
+ax.text((0.495 + 0.745) / 2, top - 0.016, "Diff", ha="center", va="center",
         fontsize=15, fontweight="bold", color=INK)
-ax.plot([0.470, 0.792], [top - 0.052, top - 0.052], color=INK, lw=1.1)
+ax.plot([0.470, 0.792], [top - 0.038, top - 0.038], color=INK, lw=1.1)
 for label, x, align in COLS:
     if label == "Diff":
         ax.text(x, hy - 0.028, label, ha="center", va="center",

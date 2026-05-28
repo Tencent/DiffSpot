@@ -30,18 +30,13 @@
 
 **DiffSpot** is a benchmark for **fine-grained visual change detection in real-world web interfaces**. Each example is a pair of near-identical screenshots that differ by a single programmatic CSS-level mutation; a VLM must describe **what changed**. Ground truth is recorded directly from the mutation that produced the pair.
 
-> [!NOTE]
-> The dataset is hosted on HuggingFace at [`tencent/DiffSpot`](https://huggingface.co/datasets/tencent/DiffSpot). This repository ships the full evaluation stack — judge, metrics, baseline runners, CI, and tests. The test suite (`pytest -v tests/`) exercises the eval pipeline against synthetic data, with no API key or dataset download required.
-
 ---
 
 ## ✨ Highlights
 
 - **A clean probe for fine-grained perception.** VLMs ace high-level image–text alignment but stumble on localized UI changes — DiffSpot isolates exactly that ability on real web interfaces.
-- **Hard and unsolved.** The best of 13 frontier VLMs reaches only **40.7%** recall, and Hard-tier recall stays **below 23% for every model**.
 - **Difficulty is property-dependent.** Neither pixel magnitude nor CLIP distance predicts recall — the bottleneck is *nameability*, not visual salience.
 - **Controllable by construction.** A fully code-driven pipeline (mutate one CSS property → re-render → record) yields exact ground truth on a tunable difficulty gradient, with a grounding gate that discards no-effect and reflow-contaminated pairs.
-- **Honest evaluation.** Open-ended description (not multiple choice), plus a 500-pair no-diff control that directly exposes hallucination.
 
 ---
 

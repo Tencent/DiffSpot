@@ -29,8 +29,8 @@ import json
 from dataclasses import dataclass
 from typing import Iterator
 
-# Replace with the published HuggingFace dataset id once the dataset is live.
-HF_DATASET_ID = "TBD/DiffSpot"
+# Published HuggingFace dataset id.
+HF_DATASET_ID = "tencent/DiffSpot"
 
 # Parquet ships 28 records with difficulty="unknown" (all task_type="no_diff"
 # — an artefact of build_release.py mapping source None -> "unknown"). Treat

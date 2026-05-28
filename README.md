@@ -37,42 +37,21 @@
 
 ## ✨ Highlights
 
-- **4,400 evaluation instances** — 3,900 has-diff pairs + 500 no-diff controls, every pair from a URL-globally-unique page
-- **13 CSS-property operators** in 4 families — typography (`font_weight` / `font_size` / `letter_spacing` / `line_height` / `text`), color (`color` / `opacity` / `gradient`), layout (`position` / `spacing` / `justify`), shape (`border` / `rounded`)
-- **3 difficulty tiers** (Easy / Medium / Hard) — 39 balanced cells of 100 pairs each
-- **Code-driven ground truth** — mutate one CSS property, re-render, record the change; fully reproducible
-- **Grounding gate** — every pair anchored to the target element's bounding box, rejecting no-effect and reflow-contamination failures
-- **Open-ended description** format + **no-diff hallucination control**, scored by an **LLM-as-Judge** ([`diffspot/prompts/judge.txt`](diffspot/prompts/judge.txt))
+- **A clean probe for fine-grained perception.** VLMs ace high-level image–text alignment but stumble on localized UI changes — DiffSpot isolates exactly that ability on real web interfaces.
+- **Hard and unsolved.** The best of 13 frontier VLMs reaches only **40.7%** recall, and Hard-tier recall stays **below 23% for every model**.
+- **Difficulty is property-dependent.** Neither pixel magnitude nor CLIP distance predicts recall — the bottleneck is *nameability*, not visual salience.
+- **Controllable by construction.** A fully code-driven pipeline (mutate one CSS property → re-render → record) yields exact ground truth on a tunable difficulty gradient, with a grounding gate that discards no-effect and reflow-contaminated pairs.
+- **Honest evaluation.** Open-ended description (not multiple choice), plus a 500-pair no-diff control that directly exposes hallucination.
 
 ---
 
 ## 🏆 Leaderboard
 
-> **Visual diff detection on the full 4,400-pair benchmark** (percentages). **Easy / Med / Hard / Diff** are Recall on has-diff pairs (1,300 per tier; 3,900 total); **No-Diff** is specificity on the 500 no-diff pairs; **Overall** is per-case accuracy `(TP + TN) / 4,400` — the official score. Judge: `gpt-oss-120b`, `reasoning_effort=high` (cross-judge Kendall τ = 1.000 across gpt-oss-120b / Kimi-K2.5 / Qwen3.5-VL-397B). **Bold** = column max; sorted by Overall within each group.
+<div align="center">
+<img src="assets/diffspot-leaderboard.png" width="860"/>
+</div>
 
-<!-- LEADERBOARD START -->
-
-| Model | Params | Easy | Med | Hard | Diff Overall | No-Diff | **Overall** |
-|---|---:|---:|---:|---:|---:|---:|---:|
-| _Open-weight models_ | | | | | | | |
-| Kimi K2.5 | 1T / 32B | 54.2 | 36.4 | 18.6 | 36.4 | 87.2 | 42.2 |
-| Qwen3.5-VL-397B | 397B / 17B | 45.1 | 31.5 | 13.7 | 30.1 | 96.6 | 37.6 |
-| Qwen3-VL-235B-Thinking | 235B / 22B | 30.1 | 17.3 | 10.5 | 19.3 | 98.8 | 28.3 |
-| GLM-4.6V-Flash | 9B | 24.5 | 17.6 | 9.3 | 17.1 | 75.8 | 23.8 |
-| GLM-4.6V | 106B / 12B | 17.0 | 10.9 | 5.5 | 11.2 | 99.6 | 21.2 |
-| Qwen3-VL-30B-Instruct | 30B / 3B | 14.5 | 9.0 | 4.5 | 9.3 | 82.0 | 17.6 |
-| Qwen3-VL-30B-Thinking | 30B / 3B | 16.5 | 8.8 | 3.8 | 9.7 | 77.8 | 17.5 |
-| Qwen3-VL-235B-Instruct | 235B / 22B | 9.6 | 3.0 | 2.6 | 5.1 | **100.0** | 15.9 |
-| InternVL3.5-30B-A3B | 30B / 3B | 4.7 | 3.9 | 3.8 | 4.2 | **100.0** | 15.0 |
-| _Proprietary models_ | | | | | | | |
-| **Gemini 3.1 Pro** | — | **60.5** | **38.9** | **22.7** | **40.7** | 98.4 | **47.2** |
-| Gemini 3 Flash | — | 52.5 | 32.5 | 18.2 | 34.4 | 91.4 | 40.9 |
-| Claude Opus 4.7 | — | 41.2 | 30.5 | 21.8 | 31.2 | 99.6 | 38.9 |
-| GPT-5.4 | — | 48.8 | 30.5 | 12.2 | 30.5 | 99.6 | 38.3 |
-
-Trivial always-no-diff baseline: 11.4% Overall.
-
-<!-- LEADERBOARD END -->
+**Easy / Med / Hard / Diff** are Recall on the has-diff pairs (1,300 per tier; 3,900 total); **No-Diff** is specificity on the 500 control pairs; **Overall** is per-case accuracy `(TP + TN) / 4,400` — the official score. Judge: `gpt-oss-120b`, `reasoning_effort=high` (cross-judge Kendall τ = 1.000 across gpt-oss-120b / Kimi-K2.5 / Qwen3.5-VL-397B). **Bold** = column max; <u>underline</u> = best open-weight. Trivial always-no-diff baseline: 11.4% Overall.
 
 > [!TIP]
 > Gemini 3.1 Pro leads at **47.2%**, 5.0 pp ahead of the best open-weight model (Kimi K2.5, 42.2%). Seven of thirteen models fall below 30%. Difficulty is strongly property-dependent — across CSS operators, neither pixel magnitude nor CLIP distance reliably predicts recall.

@@ -4,6 +4,8 @@
 
 ### Can VLMs Spot Fine-Grained Visual Differences in Web Interfaces?
 
+<hr>
+
 #### WeChat AI
 
 <br>

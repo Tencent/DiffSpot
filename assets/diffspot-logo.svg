@@ -1,25 +1,35 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 340" width="1180" height="340" fill="none">
-  <!-- ===== Icon: two overlapping screenshot frames + magnifier on the spotted diff ===== -->
+  <!-- ===== Icon: WeChat two-bubble mark (WeChat AI) ===== -->
 
-  <!-- back frame (the "before" screenshot) -->
-  <rect x="64" y="70" width="150" height="150" rx="22"
-        fill="#FFFFFF" stroke="#C3CAD3" stroke-width="13"/>
+  <!-- big bubble (back, upper-left) with tail to lower-left -->
+  <path d="M168 70
+           C218 70 258 107 258 153
+           C258 199 218 236 168 236
+           C150 236 133 231 119 222
+           L74 250
+           C92 226 99 217 95 205
+           C86 190 78 172 78 153
+           C78 107 118 70 168 70 Z"
+        fill="#FFFFFF" stroke="#141414" stroke-width="12" stroke-linejoin="round"/>
+  <!-- big bubble eyes -->
+  <circle cx="140" cy="138" r="11" fill="#141414"/>
+  <circle cx="196" cy="138" r="11" fill="#141414"/>
 
-  <!-- front frame (the "after" screenshot) -->
-  <rect x="116" y="118" width="160" height="160" rx="24"
-        fill="#FFFFFF" stroke="#141414" stroke-width="15"/>
-
-  <!-- UI content bars inside the front frame -->
-  <rect x="142" y="150" width="108" height="12" rx="6" fill="#C3CAD3"/>
-  <rect x="142" y="178" width="86"  height="12" rx="6" fill="#C3CAD3"/>
-
-  <!-- magnifier: lens straddling the spotted difference -->
-  <circle cx="232" cy="226" r="44" fill="#FFFFFF" stroke="#141414" stroke-width="15"/>
-  <line x1="266" y1="260" x2="306" y2="300" stroke="#141414" stroke-width="20" stroke-linecap="round"/>
-  <!-- the spotted difference -->
-  <circle cx="232" cy="226" r="13" fill="#FF4438"/>
+  <!-- small bubble (front, lower-right) with tail to lower-right; white fill covers overlap -->
+  <path d="M262 168
+           C300 168 330 196 330 230
+           C330 252 317 271 297 281
+           L332 305
+           C300 298 286 294 276 289
+           C271 290 266 291 262 291
+           C224 291 194 263 194 230
+           C194 196 224 168 262 168 Z"
+        fill="#FFFFFF" stroke="#141414" stroke-width="12" stroke-linejoin="round"/>
+  <!-- small bubble eyes -->
+  <circle cx="241" cy="219" r="9" fill="#141414"/>
+  <circle cx="283" cy="219" r="9" fill="#141414"/>
 
   <!-- ===== Wordmark ===== -->
-  <text x="372" y="228" font-family="DejaVu Sans, Arial, sans-serif" font-weight="bold"
+  <text x="392" y="228" font-family="DejaVu Sans, Arial, sans-serif" font-weight="bold"
         font-size="150" letter-spacing="-2" fill="#141414">DiffSpot</text>
 </svg>

@@ -89,22 +89,6 @@ python scripts/show_results.py results/gpt-5.4/scores.json
 
 ---
 
-## 📦 Dataset
-
-```python
-from datasets import load_dataset
-
-ds = load_dataset("tencent/DiffSpot", split="test")
-ex = ds[0]
-ex["image_before"]      # PIL.Image
-ex["image_after"]       # PIL.Image
-ex["ground_truth_diff"] # natural-language description of the change
-```
-
-Each row carries the screenshot pair, the benchmark prompt, the natural-language and structured ground truth (`mutation_dicts_json`), the operator, the difficulty tier, and pixel/bbox metadata. Full field reference: the [dataset card](https://huggingface.co/datasets/tencent/DiffSpot).
-
----
-
 ## 🗂️ Repository Layout
 
 ```
@@ -134,12 +118,6 @@ DiffSpot/
   note   = {arXiv preprint TBD}
 }
 ```
-
----
-
-## 🙏 Acknowledgements
-
-DiffSpot builds on prior visual-diff benchmarks ([CLEVR-Change](https://arxiv.org/abs/1901.02527), [Spot-the-Diff](https://arxiv.org/abs/1808.10584), [D³](https://arxiv.org/abs/2410.02651)) and programmatic UI mutation work ([UIClip](https://arxiv.org/abs/2404.12500)). See the paper for the full related-work table.
 
 ---
 

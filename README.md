@@ -1,6 +1,6 @@
 <div align="center">
 
-# DiffSpot
+<img src="assets/diffspot-logo.png" width="520"/>
 
 ### Can VLMs Spot Fine-Grained Visual Differences in Web Interfaces?
 

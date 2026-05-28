@@ -21,7 +21,7 @@
 <table>
 <tr>
 <td>
-<h3>🏆 Across 13 frontier VLMs evaluated zero-shot, even the best identifies only <b>40.7%</b> of true changes — and Hard-tier recall stays below <b>23%</b> for <i>every</i> model.</h3>
+<h3>🏆 Even the best VLM identifies only <b>40.7%</b> of true visual changes.</h3>
 </td>
 </tr>
 </table>

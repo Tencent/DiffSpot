@@ -13,7 +13,7 @@
 &nbsp;
 <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="License"></a>
 &nbsp;
-<img src="https://img.shields.io/badge/Benchmark-4,400%20pairs-blue?style=for-the-badge" alt="Size">
+<a href=""><img src="https://img.shields.io/badge/📄%20Paper-arXiv-b31b1b?style=for-the-badge" alt="arXiv"></a>
 </p>
 
 </div>

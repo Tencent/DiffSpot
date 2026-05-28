@@ -105,8 +105,8 @@ def load(
         revision: optional dataset revision pin (commit SHA / tag) for reproducibility.
         cache_dir: optional local cache override.
         dataset_path: optional local parquet path (single file or glob). When set,
-            bypasses ``HF_DATASET_ID`` and loads from disk — useful for testing
-            before the dataset is published.
+            bypasses ``HF_DATASET_ID`` and loads from disk — useful for offline
+            or local evaluation.
 
     Yields:
         ``DiffSpotItem``
@@ -123,12 +123,6 @@ def load(
         ds_dict = load_dataset("parquet", data_files={"test": dataset_path})
         ds_dict = {"test": ds_dict["test"]}
     else:
-        if HF_DATASET_ID.startswith("TBD"):
-            raise RuntimeError(
-                "DiffSpot dataset has not been published yet. Either set "
-                "diffspot.data.HF_DATASET_ID to the published id, or pass "
-                "dataset_path=<local parquet> to load(...)."
-            )
         kwargs: dict = {}
         if revision is not None:
             kwargs["revision"] = revision

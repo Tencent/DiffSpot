@@ -54,7 +54,7 @@ Submit your model: see [`docs/submission.md`](docs/submission.md).
 ## Quick Start
 
 ```bash
-git clone https://github.com/<org>/DiffSpot.git
+git clone https://github.com/Tencent/DiffSpot.git
 cd DiffSpot
 pip install -e ".[api]"
 
@@ -98,7 +98,7 @@ DiffSpot/
 
 ```bibtex
 @article{diffspot2026,
-  title  = {DiffSpot: Can VLMs Detect Visual Changes in Web Pages?},
+  title  = {DiffSpot: Can VLMs Spot Fine-Grained Visual Differences in Web Interfaces?},
   author = {TBD},
   year   = {2026},
   note   = {arXiv preprint TBD}

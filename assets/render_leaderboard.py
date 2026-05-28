@@ -118,7 +118,7 @@ draw_group("Proprietary models", y_of(i)); i += 1
 for r in PROP:
     draw_row(r, y_of(i)); i += 1
 
-rule(0.04, lw=2.2)  # bottom rule
+rule(bottom, lw=2.2)  # bottom rule
 
 plt.subplots_adjust(left=0.005, right=0.995, top=0.995, bottom=0.005)
 out = "diffspot-leaderboard.png"

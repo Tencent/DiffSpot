@@ -2,9 +2,7 @@
 
 <img src="assets/diffspot-logo.png" width="520"/>
 
-### Can VLMs Spot Fine-Grained Visual Differences in Web Interfaces?
-
-<hr>
+## Can VLMs Spot Fine-Grained Visual Differences in Web Interfaces?
 
 #### WeChat AI
 
@@ -17,16 +15,6 @@
 &nbsp;
 <img src="https://img.shields.io/badge/Benchmark-4,400%20pairs-blue?style=for-the-badge" alt="Size">
 </p>
-
-<br>
-
-<table>
-<tr>
-<td>
-<h3>🏆 Even the best VLM identifies only <b>40.7%</b> of true visual changes.</h3>
-</td>
-</tr>
-</table>
 
 </div>
 

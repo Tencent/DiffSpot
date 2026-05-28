@@ -15,6 +15,6 @@
   </g>
 
   <!-- ===== Wordmark (regular weight, airy spacing — StableToken style) ===== -->
-  <text x="372" y="232" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-weight="normal"
-        font-size="155" letter-spacing="1" fill="#141414">DiffSpot</text>
+  <text x="360" y="216" font-family="DejaVu Sans, Helvetica, Arial, sans-serif" font-weight="normal"
+        font-size="122" letter-spacing="1" fill="#141414">DiffSpot</text>
 </svg>

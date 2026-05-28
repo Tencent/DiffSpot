@@ -1,5 +1,12 @@
 #!/usr/bin/env python3
-"""Render the DiffSpot leaderboard as a paper-style table image."""
+"""Render the DiffSpot leaderboard as a paper-style table image.
+
+Single source of truth: ../leaderboard/leaderboard.json. To update the figure
+after a new submission, edit leaderboard.json and re-run this script.
+"""
+import json
+from pathlib import Path
+
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
@@ -22,23 +29,26 @@ COLS = [
     ("Overall", 0.955, "center"),
 ]
 
-OPEN = [
-    ("Kimi K2.5", "1T / 32B", "54.2", "36.4", "18.6", "36.4", "87.2", "42.2"),
-    ("Qwen3.5-VL-397B", "397B / 17B", "45.1", "31.5", "13.7", "30.1", "96.6", "37.6"),
-    ("Qwen3-VL-235B-Thinking", "235B / 22B", "30.1", "17.3", "10.5", "19.3", "98.8", "28.3"),
-    ("GLM-4.6V-Flash", "9B", "24.5", "17.6", "9.3", "17.1", "75.8", "23.8"),
-    ("GLM-4.6V", "106B / 12B", "17.0", "10.9", "5.5", "11.2", "99.6", "21.2"),
-    ("Qwen3-VL-30B-Instruct", "30B / 3B", "14.5", "9.0", "4.5", "9.3", "82.0", "17.6"),
-    ("Qwen3-VL-30B-Thinking", "30B / 3B", "16.5", "8.8", "3.8", "9.7", "77.8", "17.5"),
-    ("Qwen3-VL-235B-Instruct", "235B / 22B", "9.6", "3.0", "2.6", "5.1", "100.0", "15.9"),
-    ("InternVL3.5-30B-A3B", "30B / 3B", "4.7", "3.9", "3.8", "4.2", "100.0", "15.0"),
-]
-PROP = [
-    ("Gemini 3.1 Pro", "—", "60.5", "38.9", "22.7", "40.7", "98.4", "47.2"),
-    ("Gemini 3 Flash", "—", "52.5", "32.5", "18.2", "34.4", "91.4", "40.9"),
-    ("Claude Opus 4.7", "—", "41.2", "30.5", "21.8", "31.2", "99.6", "38.9"),
-    ("GPT-5.4", "—", "48.8", "30.5", "12.2", "30.5", "99.6", "38.3"),
-]
+# ---- Data: read from leaderboard.json (single source of truth) ----
+LEADERBOARD_JSON = Path(__file__).resolve().parents[1] / "leaderboard" / "leaderboard.json"
+
+
+def _row(e: dict) -> tuple:
+    f = lambda k: f"{float(e[k]):.1f}"
+    return (
+        e["display_name"], e.get("params") or "—",
+        f("easy_recall"), f("med_recall"), f("hard_recall"),
+        f("diff_overall_recall"), f("no_diff_specificity"), f("overall_accuracy"),
+    )
+
+
+_entries = json.loads(LEADERBOARD_JSON.read_text())["entries"]
+OPEN = [_row(e) for e in sorted(
+    (x for x in _entries if x.get("family") == "open-weight"),
+    key=lambda x: x["overall_accuracy"], reverse=True)]
+PROP = [_row(e) for e in sorted(
+    (x for x in _entries if x.get("family") == "proprietary"),
+    key=lambda x: x["overall_accuracy"], reverse=True)]
 
 # value-column indices into a row tuple (2..7) -> bold if == column max
 NUMCOL = [2, 3, 4, 5, 6, 7]

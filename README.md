@@ -57,6 +57,7 @@ pip install -e ".[api]"
 export OPENAI_API_KEY=...   # for both the baseline run and the judge
 
 # 1. Run a baseline VLM (loads the HF dataset, writes predictions JSONL)
+#    Replace gpt-5.4 with your own model — see "Evaluate your own model" below.
 python baselines/api/run_openai.py \
     --model gpt-5.4 \
     --output results/gpt-5.4/predictions.jsonl

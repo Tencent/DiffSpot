@@ -77,6 +77,69 @@ python scripts/show_results.py results/gpt-5.4/scores.json
 
 ---
 
+## 📦 Dataset
+
+```python
+from datasets import load_dataset
+
+ds = load_dataset("tencent/DiffSpot", split="test")   # 4,400 pairs
+ex = ds[0]
+ex["image_before"], ex["image_after"]   # PIL.Image — before / after, in this order
+ex["task_type"]                          # "visual_diff" | "no_diff"
+ex["difficulty"]                         # easy | medium | hard | no_diff
+ex["ground_truth_diff"]                  # natural-language GT (display only)
+ex["mutation_dicts_json"]                # JSON-encoded structured GT (scoring source)
+```
+
+Other per-pair fields: `mutation_types`, `domain`, `pixel_diff` / `target_diff` / `outside_diff`, `target_bbox_{x,y,w,h}`. Offline / local parquet: `diffspot.data.load(dataset_path="path/to/test-*.parquet")`.
+
+---
+
+## 🧪 Evaluate your own model
+
+The contract is simple: produce a **predictions JSONL** using the prompts in
+[`diffspot/prompts/`](diffspot/prompts/) **verbatim**, then score it. Copy a runner in
+[`baselines/`](baselines/) (`api/` or `local/`) as a template and swap in your model client.
+
+> [!IMPORTANT]
+> Two things silently wreck scores if you roll your own runner:
+> - **Image order** — feed `image_before` first, `image_after` second (the prompt is anchored to "Image 1 = before, Image 2 = after").
+> - **`max_tokens` ≥ 16384** at `temperature 0`. A thinking model on a small budget spends it on hidden reasoning and returns empty `content` → parse failures, not errors.
+
+Predictions JSONL — one record per pair:
+
+```json
+{"id": "...", "split": "easy|medium|hard|no_diff", "model": "...", "prompt_version": "v1.0", "prediction": "<model's free-form diff list>"}
+```
+
+Runners **resume automatically** (re-running continues from where they stopped). Validate before submitting:
+
+```bash
+python scripts/prepare_submission.py --predictions results/<model>/predictions.jsonl --output submissions/<model>.zip
+```
+
+**Scoring** uses the official judge `gpt-oss-120b` (`reasoning_effort=high`), two ways:
+
+- **Self-evaluate** — the judge is open-weight; host it (vLLM / sglang) or point `OPENAI_BASE_URL` at any OpenAI-compatible endpoint serving it, then run `scripts/evaluate.py` (Quick Start step 2).
+- **Don't want to host a 120B judge?** Submit only your predictions and we score them — see [`docs/submission.md`](docs/submission.md).
+
+Metric definitions (Overall / Diff / No-Diff, and why No-Diff specificity matters): [`docs/evaluation.md`](docs/evaluation.md).
+
+---
+
+## ⚙️ Environment Variables
+
+| Variable | Used by |
+|---|---|
+| `OPENAI_API_KEY` | OpenAI baseline **and** the judge |
+| `OPENAI_BASE_URL` | route the OpenAI client to a vLLM / sglang / gateway endpoint (judge or self-hosted models) |
+| `ANTHROPIC_API_KEY` | Anthropic baseline |
+| `GOOGLE_API_KEY` (or `GEMINI_API_KEY`) | Google baseline |
+
+Requires Python ≥ 3.10. `pip install -e ".[api]"` pulls the API clients; self-hosted models in `baselines/local/` expect an OpenAI-compatible endpoint (`--endpoint`).
+
+---
+
 ## 🗂️ Repository Layout
 
 ```

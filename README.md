@@ -32,6 +32,31 @@
 
 ---
 
+## 👀 Example Pairs
+
+Each pair differs by a single CSS-level mutation. The model is given both screenshots and must name the change.
+
+<table>
+<tr><th width="50%">Before</th><th width="50%">After</th></tr>
+<tr>
+  <td><img src="assets/examples/easy-color-before.png"/></td>
+  <td><img src="assets/examples/easy-color-after.png"/></td>
+</tr>
+<tr><td colspan="2" align="center"><sub>The NAV paragraph in the "#1 hedge fund administrator" section is now a lighter gray.</sub></td></tr>
+<tr>
+  <td><img src="assets/examples/easy-fontsize-before.png"/></td>
+  <td><img src="assets/examples/easy-fontsize-after.png"/></td>
+</tr>
+<tr><td colspan="2" align="center"><sub>The caption under the "PDF Viewer" heading is slightly larger.</sub></td></tr>
+<tr>
+  <td><img src="assets/examples/easy-rounded-before.png"/></td>
+  <td><img src="assets/examples/easy-rounded-after.png"/></td>
+</tr>
+<tr><td colspan="2" align="center"><sub>The "Start Chat" button has more rounded corners.</sub></td></tr>
+</table>
+
+---
+
 ## 🏆 Leaderboard
 
 <div align="center">

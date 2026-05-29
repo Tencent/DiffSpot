@@ -18,7 +18,7 @@ OUT = ROOT / "docs" / "index.html"
 
 HF_URL = "https://huggingface.co/datasets/tencent/DiffSpot"
 GH_URL = "https://github.com/Tencent/DiffSpot"
-ARXIV_URL = ""  # TBD
+ARXIV_URL = "https://arxiv.org/abs/2605.29615"
 
 NUMCOLS = [
     ("easy_recall", "Easy"),

@@ -13,7 +13,7 @@
 &nbsp;
 <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="License"></a>
 &nbsp;
-<a href=""><img src="https://img.shields.io/badge/📄%20Paper-arXiv-b31b1b?style=for-the-badge" alt="arXiv"></a>
+<a href="https://arxiv.org/abs/2605.29615"><img src="https://img.shields.io/badge/📄%20Paper-arXiv-b31b1b?style=for-the-badge" alt="arXiv"></a>
 </p>
 
 </div>
@@ -198,10 +198,12 @@ DiffSpot/
 
 ```bibtex
 @article{diffspot2026,
-  title  = {DiffSpot: Can VLMs Spot Fine-Grained Visual Differences in Web Interfaces?},
-  author = {TBD},
-  year   = {2026},
-  note   = {arXiv preprint TBD}
+  title         = {DiffSpot: Can VLMs Spot Fine-Grained Visual Differences in Web Interfaces?},
+  author        = {TBD},
+  year          = {2026},
+  eprint        = {2605.29615},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CV}
 }
 ```
 

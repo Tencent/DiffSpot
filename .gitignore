@@ -60,3 +60,8 @@ results/_tmp/
 space/.gradio/
 space/flagged/
 .git_backups/
+
+# Local backups (mv-bak safety copies; never committed)
+*.bak_*
+*_candidates*/
+**/_candidates*/

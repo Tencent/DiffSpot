@@ -39,11 +39,6 @@ Each pair differs by a single CSS-level mutation. The model is given both screen
 <table>
 <tr><th width="50%">Before</th><th width="50%">After</th></tr>
 <tr>
-  <td><img src="assets/examples/easy-color-before.png"/></td>
-  <td><img src="assets/examples/easy-color-after.png"/></td>
-</tr>
-<tr><td colspan="2" align="center"><sub>The NAV paragraph in the "#1 hedge fund administrator" section is now a lighter gray.</sub></td></tr>
-<tr>
   <td><img src="assets/examples/easy-fontsize-before.png"/></td>
   <td><img src="assets/examples/easy-fontsize-after.png"/></td>
 </tr>
@@ -52,7 +47,22 @@ Each pair differs by a single CSS-level mutation. The model is given both screen
   <td><img src="assets/examples/easy-rounded-before.png"/></td>
   <td><img src="assets/examples/easy-rounded-after.png"/></td>
 </tr>
-<tr><td colspan="2" align="center"><sub>The "Start Chat" button has more rounded corners.</sub></td></tr>
+<tr><td colspan="2" align="center"><sub>The "SOHBETE BAŞLA" button has more rounded corners.</sub></td></tr>
+<tr>
+  <td><img src="assets/examples/easy-opacity-before.png"/></td>
+  <td><img src="assets/examples/easy-opacity-after.png"/></td>
+</tr>
+<tr><td colspan="2" align="center"><sub>The card with the heading "Interesting Facts About Steamboat Springs" is much more transparent.</sub></td></tr>
+<tr>
+  <td><img src="assets/examples/easy-gradient-before.png"/></td>
+  <td><img src="assets/examples/easy-gradient-after.png"/></td>
+</tr>
+<tr><td colspan="2" align="center"><sub>The banner background showing the "Find your ideal partner" tagline now uses a different gradient.</sub></td></tr>
+<tr>
+  <td><img src="assets/examples/easy-fontweight-before.png"/></td>
+  <td><img src="assets/examples/easy-fontweight-after.png"/></td>
+</tr>
+<tr><td colspan="2" align="center"><sub>The subtitle "your loan installment!" in the financing section is slightly bolder.</sub></td></tr>
 </table>
 
 ---

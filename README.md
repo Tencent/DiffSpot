@@ -197,13 +197,14 @@ DiffSpot/
 ## 📚 Citation
 
 ```bibtex
-@article{diffspot2026,
-  title         = {DiffSpot: Can VLMs Spot Fine-Grained Visual Differences in Web Interfaces?},
-  author        = {TBD},
-  year          = {2026},
-  eprint        = {2605.29615},
-  archivePrefix = {arXiv},
-  primaryClass  = {cs.CV}
+@misc{zhang2026diffspotvlmsspotfinegrained,
+      title={DiffSpot: Can VLMs Spot Fine-Grained Visual Differences in Web Interfaces?},
+      author={Linhao Zhang and Aiwei Liu and Yuan Liu and Xiao Zhou},
+      year={2026},
+      eprint={2605.29615},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2605.29615},
 }
 ```
 
